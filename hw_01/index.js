@@ -1,8 +1,16 @@
 let addressbook = [];
 
+// GUID generator
+function guidGenerate() {
+    function f() {
+        return (Math.random() * 100).toString(16).substring(3, 7);
+    }
+    return `${f()}${f()}-${f()}-${f()}-${f()}-${f()}${f()}${f()}`;
+}
+
 class Contact {
-    constructor(id, firstName, lastName, phone) {
-        this.id = id;
+    constructor(firstName, lastName, phone) {
+        this.id = guidGenerate();
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
@@ -22,8 +30,8 @@ class Contact {
 }
 
 // adding contact
-let addContact = (id, firstName, lastName, phone) => {
-    addressbook.push(new Contact(id, firstName, lastName, phone));
+let addContact = (firstName, lastName, phone) => {
+    addressbook.push(new Contact(firstName, lastName, phone));
 }
 
 // deleting contact
@@ -33,9 +41,9 @@ let deleteContact = id => {
 }
 
 // testing
-addContact(1234, 'John', 'Smith', '555-545-88-99');
-addContact(1548, 'Penguin', 'Fat', '555-987-87-66');
-addContact(9875, 'Cormorant', 'Stupid', '555-874-22-33');
+addContact('John', 'Smith', '555-545-88-99');
+addContact('Penguin', 'Fat', '555-987-87-66');
+addContact('Cormorant', 'Stupid', '555-874-22-33');
 
 console.log(addressbook);
 
