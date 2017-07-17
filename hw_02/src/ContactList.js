@@ -15,8 +15,9 @@ class ContactList extends Component {
                 }
             ]
         };
-        this.addContact = this.addContact.bind(this);
+        //this.addContact = this.addContact.bind(this);
     }
+
 
     guidGen() {
         const f = () => (Math.random() * 100).toString(16).substring(3, 7);
@@ -45,10 +46,17 @@ class ContactList extends Component {
         this.setState({ theList: [...this.state.theList, newPerson] });
     }
 
+    // componentDidMount() {
+    //     fetch('https://localhost:3070/prices').then(function(response) {
+    //         console.log(response);
+    //     });
+    // };
+
+
     render() {
         return (
             <div className="ContactList">
-                <AddContact addContact={this.addContact} />
+                <AddContact addContact={this.addContact.bind(this)} />
                 {this.renderList()}
             </div>
         );

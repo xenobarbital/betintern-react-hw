@@ -14,7 +14,7 @@ class AddContact extends Component {
         this.getLName = this.getLName.bind(this);
         this.getEmail = this.getEmail.bind(this);
         this.getPhone = this.getPhone.bind(this);
-        this.addContact = this.addContact(this);
+        //this.addContact = this.addContact(this);
     }
 
     getFName(event) {
@@ -34,7 +34,12 @@ class AddContact extends Component {
     }
 
     addContact() {
-        this.props.addContact(this.state);
+        this.props.addContact({
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            email: this.state.email,
+            phone: this.state.phone
+        });
         this.setState({ firstName: '' });
         this.setState({ lastName: '' });
         this.setState({ email: '' });
@@ -56,7 +61,7 @@ class AddContact extends Component {
                 <label>Phone: &nbsp;
                     <input type="text" onChange={this.getPhone} />
                 </label><br />
-                <button onClick={this.addContact}>Add</button>
+                <button onClick={this.addContact.bind(this)}>Add</button>
             </div>
         );
     }
