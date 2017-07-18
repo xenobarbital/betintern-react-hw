@@ -6,7 +6,7 @@ class LiveData extends Component {
             <div className="LiveData" id={this.props._id}>
                 <p>Feed from {this.props.name}</p>
                 <p>
-                    Stocks value: {this.props.value}
+                    Stocks value: {this.props.value} {this.props.diff}
                 </p>
             </div>
         );
