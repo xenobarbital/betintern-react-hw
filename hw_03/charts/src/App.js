@@ -7,9 +7,9 @@ class App extends Component {
         super(props);
         this.state = {
             currentStocks: [
-                {id: 1, name: 'NASDAQ', price: 0, diff: '='},
-                {id: 2, name: 'Dimler', price: 0, diff: '='},
-                {id: 3, name: 'SpaceX', price: 0, diff: '='}
+                {id: 1, name: 'NASDAQ', price: 0, diff: 'equal'},
+                {id: 2, name: 'Dimler', price: 0, diff: 'equal'},
+                {id: 3, name: 'SpaceX', price: 0, diff: 'equal'}
             ],
             prevStocks: []
         };
@@ -25,11 +25,11 @@ class App extends Component {
                         let updated = response.map(
                             (company, i) => {
                                 if (company.price > old[i].price) {
-                                    company.diff = '+';
+                                    company.diff = 'more';
                                 } else if (company.price < old[i].price) {
-                                    company.diff = '-';
+                                    company.diff = 'less';
                                 } else {
-                                    company.diff = '=';
+                                    company.diff = 'equal';
                                 }
                                 return company;
                             }
@@ -38,7 +38,7 @@ class App extends Component {
                         this.setState({ currentStocks: updated });
                     });
             },
-            5000
+            1000
         );
     }
 
