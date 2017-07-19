@@ -27,3 +27,10 @@
     height: 0px;
     border: 5px solid grey
 }
+
+.chart {
+    height: 400;
+    width: 500;
+    border: 1px solid blue;
+}
+

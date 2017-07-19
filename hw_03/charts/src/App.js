@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import LiveData from './LiveData';
+import Chart from './Chart';
 import './App.css';
 
 class App extends Component {
@@ -13,6 +14,10 @@ class App extends Component {
             ],
             prevStocks: []
         };
+    }
+
+    passData(event) {
+        console.log(event.target.id);
     }
 
     componentDidMount() {
@@ -45,24 +50,27 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <LiveData
-                    _id={this.state.currentStocks[0].id}
-                    name={this.state.currentStocks[0].name}
-                    value={this.state.currentStocks[0].price}
-                    diff={this.state.currentStocks[0].diff}
-                />
-                <LiveData
-                    _id={this.state.currentStocks[1].id}
-                    name={this.state.currentStocks[1].name}
-                    value={this.state.currentStocks[1].price}
-                    diff={this.state.currentStocks[1].diff}
-                />
-                <LiveData
-                    _id={this.state.currentStocks[2].id}
-                    name={this.state.currentStocks[2].name}
-                    value={this.state.currentStocks[2].price}
-                    diff={this.state.currentStocks[2].diff}
-                />
+                <div onClick={this.passData.bind(this)}>
+                    <LiveData
+                        _id="1"
+                        name={this.state.currentStocks[0].name}
+                        value={this.state.currentStocks[0].price}
+                        diff={this.state.currentStocks[0].diff}
+                    />
+                    <LiveData
+                        _id="2"
+                        name={this.state.currentStocks[1].name}
+                        value={this.state.currentStocks[1].price}
+                        diff={this.state.currentStocks[1].diff}
+                    />
+                    <LiveData
+                        _id="3"
+                        name={this.state.currentStocks[2].name}
+                        value={this.state.currentStocks[2].price}
+                        diff={this.state.currentStocks[2].diff}
+                    />
+                </div>
+                <Chart />
             </div>
         );
     }
