@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Bar } from 'react-chartjs-2';
 
-const data = {
+/*const data = {
     labels: [1, 2, 3, 4, 5],
     datasets: [{
         backgroundColor: 'grey',
@@ -10,13 +10,13 @@ const data = {
         data: [10, 15, 20, 23, 19],
     }]
 };
-
+*/
 class Chart extends Component {
     render() {
         return (
             <div>
                 <Bar
-                    data={data}
+                    data={this.props.data}
                     width={200}
                     height={300}
                     options={{

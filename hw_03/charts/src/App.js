@@ -12,12 +12,37 @@ class App extends Component {
                 {id: 2, name: 'Dimler', price: 0, diff: 'equal'},
                 {id: 3, name: 'SpaceX', price: 0, diff: 'equal'}
             ],
-            prevStocks: []
+            prevStocks: [],
+            firstChart: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            secondChart: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            thirdChart: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         };
+    }
+
+    shiftCharData(data, price) {
+        data.push(price);
+        data.shift();
+        return data;
     }
 
     passData(event) {
         console.log(event.target.id);
+        this.props.data = {
+            labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+            datasets: [{
+                backgroundColor: 'grey',
+                borderColor: 'black',
+                borderWidth: 1,
+                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            }]
+        }
+        if (event.target.id === '1') {
+            this.props.data.datasets[0].data = this.state.firstChart;
+        } else if (event.target.id === '2') {
+            this.props.data.datasets[0].data = this.state.secondChart;
+        } else if (event.target.id === '3') {
+            this.props.data.datasets[0].data = this.state.thirdChart;
+        }
     }
 
     componentDidMount() {
@@ -39,6 +64,23 @@ class App extends Component {
                                 return company;
                             }
                         );
+                        let arr1 = this.state.firstChart;
+                        let arr2 = this.state.secondChart;
+                        let arr3 = this.state.thirdChart;
+                        this.setState({
+                            firstChart: this.shiftCharData(arr1, response[0].price)
+                        });
+                        this.setState({
+                            secondChart: this.shiftCharData(arr2, response[1].price)
+                        });
+                        this.setState({
+                            thirdChart: this.shiftCharData(arr3, response[2].price)
+                        });
+
+                        console.log(this.state.firstChart);
+                        console.log(this.state.secondChart);
+                        console.log(this.state.thirdChart);
+
                         this.setState({ prevStocks: old });
                         this.setState({ currentStocks: updated });
                     });
@@ -70,7 +112,7 @@ class App extends Component {
                         diff={this.state.currentStocks[2].diff}
                     />
                 </div>
-                <Chart />
+                <Chart data={this.props.data}/>
             </div>
         );
     }
