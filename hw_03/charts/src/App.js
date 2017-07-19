@@ -17,6 +17,15 @@ class App extends Component {
             secondChart: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             thirdChart: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         };
+        this.props.data = {
+            labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+            datasets: [{
+                backgroundColor: 'grey',
+                borderColor: 'black',
+                borderWidth: 1,
+                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            }]
+        };
     }
 
     shiftCharData(data, price) {
@@ -27,15 +36,6 @@ class App extends Component {
 
     passData(event) {
         console.log(event.target.id);
-        this.props.data = {
-            labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            datasets: [{
-                backgroundColor: 'grey',
-                borderColor: 'black',
-                borderWidth: 1,
-                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            }]
-        }
         if (event.target.id === '1') {
             this.props.data.datasets[0].data = this.state.firstChart;
         } else if (event.target.id === '2') {
