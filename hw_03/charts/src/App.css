@@ -1,0 +1,38 @@
+h2 {
+    margin-left: 10px;
+}
+
+.TileHolder {
+    margin: 5px;
+    width: auto;
+}
+
+.Tile {
+    display: inline-block;
+    border: 1px solid blue;
+    padding: 10px;
+    margin: 5px;
+    width: 300px;
+}
+
+.more {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid green;
+}
+
+.less {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid red;
+}
+
+.equal {
+    width: 0px;
+    height: 0px;
+    border: 5px solid grey
+}

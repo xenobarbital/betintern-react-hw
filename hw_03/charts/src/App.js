@@ -53,11 +53,13 @@ class App extends Component {
     }
 
     render() {
-        console.log(this.state.priceChange);
         return (
             <div className="App">
-                Hello bewbs!
-                <TileHolder data={this.state.newStockData}/>
+                <h2>Stocks datafeed:</h2>
+                <TileHolder
+                    stockData={this.state.newStockData}
+                    priceChange={this.state.priceChange}
+                />
             </div>
         );
     }
