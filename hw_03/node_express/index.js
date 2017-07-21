@@ -9,9 +9,9 @@ app.use(bodyParser.json());
 
 app.get('/prices', function(req, res) {
     res.send([
-        {id: 1, name: 'NASDAQ', price: Math.random() * 10000},
-        {id: 2, name: 'Dimler', price: Math.random() * 10000},
-        {id: 3, name: 'SpaceX', price: Math.random() * 10000}
+        {id: 1, name: 'NASDAQ', price: (Math.random() * 1000).toFixed(2)},
+        {id: 2, name: 'Dimler', price: (Math.random() * 1000).toFixed(2)},
+        {id: 3, name: 'SpaceX', price: (Math.random() * 1000).toFixed(2)}
     ]);
 });
 

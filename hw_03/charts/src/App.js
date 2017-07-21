@@ -1,21 +1,66 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import TileHolder from './components/TileHolder';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            newStockData: [],
+            oldStockData: [],
+            priceChange: []
+        }
+    }
+
+    componentWillMount() {
+        fetch('http://localhost:3070/prices')
+            .then(response => response.json())
+            .then(response => {
+                this.setState({ newStockData: response });
+                this.setState({
+                    priceChange: response.map(
+                        data => 'equal'
+                    )
+                })
+            })
+    }
+
+    componentDidMount() {
+        setInterval(
+            () => {
+                fetch('http://localhost:3070/prices')
+                    .then(response => response.json())
+                    .then(response => {
+                        this.setState({ oldStockData: this.state.newStockData });
+                        this.setState({ newStockData: response });
+                        this.setState({
+                            priceChange: response.map(
+                                (data, i) => {
+                                    if (data.price > this.state.oldStockData[i].price) {
+                                        return 'more';
+                                    } else if (data.price < this.state.oldStockData[i].price) {
+                                        return 'less';
+                                    } else {
+                                        return 'equal';
+                                    }
+                                }
+                            )
+                        });
+                    })
+            },
+            2000
+        );
+    }
+
+    render() {
+        console.log(this.state.priceChange);
+        return (
+            <div className="App">
+                Hello bewbs!
+                <TileHolder data={this.state.newStockData}/>
+            </div>
+        );
+    }
 }
 
 export default App;
