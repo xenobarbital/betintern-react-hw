@@ -16,6 +16,8 @@ class Details extends Component {
     render() {
         return (
             <div className="Details">
+                Company: {this.props.name}<br/>
+                id: {this.props._id}<br/>
                 The price is {this.state.price}.
             </div>
         );
