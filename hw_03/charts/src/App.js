@@ -51,12 +51,11 @@ class App extends Component {
                         });
                     })
             },
-            2000
+            500
         );
     }
 
     detailedView(event) {
-        console.log(event.target.id);
         this.setState({ companyId: event.target.id });
         this.setState({ tileView: false });
     }

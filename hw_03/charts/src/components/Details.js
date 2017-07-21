@@ -4,25 +4,19 @@ class Details extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            prices: []
+            price: ''
         };
     }
 
-    componentWillMount() {
-        this.setState({ prices: [this.props.price] });
-    }
-
     componentWillReceiveProps() {
-        let _prices = this.state.prices;
-        _prices[_prices.length] = this.props.price;
-        this.setState({ prices: _prices });
-        console.log(this.state.prices);
+        this.setState({ price: this.props.price });
+        console.log(this.state.price);
     }
 
     render() {
         return (
             <div className="Details">
-                The price is pwnd.
+                The price is {this.state.price}.
             </div>
         );
     }
