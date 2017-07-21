@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import TileHolder from './components/TileHolder';
+import Details from './components/Details';
 
 class App extends Component {
     constructor(props) {
@@ -8,7 +9,9 @@ class App extends Component {
         this.state = {
             newStockData: [],
             oldStockData: [],
-            priceChange: []
+            priceChange: [],
+            tileView: true,
+            companyId: ''
         }
     }
 
@@ -52,16 +55,42 @@ class App extends Component {
         );
     }
 
+    detailedView(event) {
+        console.log(event.target.id);
+        this.setState({ companyId: event.target.id });
+        this.setState({ tileView: false });
+    }
+
+    tileView() {
+        this.setState({ tileView: true });
+    }
+
     render() {
-        return (
-            <div className="App">
-                <h2>Stocks datafeed:</h2>
-                <TileHolder
-                    stockData={this.state.newStockData}
-                    priceChange={this.state.priceChange}
-                />
-            </div>
-        );
+        if (this.state.tileView) {
+            return (
+                <div className="App">
+                    <h2>Stocks datafeed:</h2>
+                    <TileHolder
+                        detailedView={this.detailedView.bind(this)}
+                        stockData={this.state.newStockData}
+                        priceChange={this.state.priceChange}
+                    />
+                </div>
+            );
+        } else {
+            let id = this.state.companyId;
+            return (
+                <div className="App">
+                    <h2>Detailed view</h2>
+                    <button onClick={this.tileView.bind(this)}>back</button>
+                    <Details
+                        name={this.state.newStockData[id].name}
+                        price={this.state.newStockData[id].price}
+                        _id={this.state.newStockData[id].id}
+                    />
+                </div>
+            );
+        }
     }
 }
 

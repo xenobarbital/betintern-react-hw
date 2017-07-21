@@ -17,7 +17,10 @@ class TileHolder extends Component {
             }
         );
         return (
-            <div className="TileHolder">
+            <div
+                className="TileHolder"
+                onClick={this.props.detailedView}
+            >
                 {tiles}
             </div>
         );

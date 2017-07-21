@@ -7,8 +7,8 @@ class Tile extends Component {
                 className="Tile"
                 id={this.props._id}
             >
-                <p>Datafeed from: <strong>{this.props.name}</strong></p>
-                <p>Stocks price value: <strong>{this.props.price}</strong></p>
+                Datafeed from: {this.props.name}<br />
+                Stocks price value: {this.props.price}
                 <div className={this.props.priceChange}></div>
             </div>
         );
