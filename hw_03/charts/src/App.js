@@ -15,18 +15,18 @@ class App extends Component {
         }
     }
 
-    componentWillMount() {
-        fetch('http://localhost:3070/prices')
-            .then(response => response.json())
-            .then(response => {
-                this.setState({ newStockData: response });
-                this.setState({
-                    priceChange: response.map(
-                        data => 'equal'
-                    )
-                })
-            })
-    }
+    // componentWillMount() {
+    //     fetch('http://localhost:3070/prices')
+    //         .then(response => response.json())
+    //         .then(response => {
+    //             this.setState({ newStockData: response });
+    //             this.setState({
+    //                 priceChange: response.map(
+    //                     data => 'equal'
+    //                 )
+    //             })
+    //         })
+    // }
 
     componentDidMount() {
         setInterval(
@@ -34,9 +34,26 @@ class App extends Component {
                 fetch('http://localhost:3070/prices')
                     .then(response => response.json())
                     .then(response => {
-                        this.setState({ oldStockData: this.state.newStockData });
-                        this.setState({ newStockData: response });
-                        this.setState({
+                        this.setState({ oldStockData: this.state.newStockData,
+                            newStockData: response,
+                            priceChange: response.map(
+                                (data, i) => {
+                                    if (!this.state.oldStockData.length) {
+                                        return 'equal';
+                                    }
+                                    if (data.price > this.state.oldStockData[i].price) {
+                                        return 'more';
+                                    } else if (data.price < this.state.oldStockData[i].price) {
+                                        return 'less';
+                                    } else {
+                                        return 'equal';
+                                    }
+                                }
+                            )
+
+                        });
+                        //this.setState({ newStockData: response });
+                        /*   this.setState({
                             priceChange: response.map(
                                 (data, i) => {
                                     if (data.price > this.state.oldStockData[i].price) {
@@ -48,7 +65,7 @@ class App extends Component {
                                     }
                                 }
                             )
-                        });
+                        });*/
                     })
             },
             500
