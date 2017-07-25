@@ -42,3 +42,11 @@ h2, button {
     height: 0px;
     border: 5px solid grey
 }
+
+.Chart, .List {
+    display: inline-block;
+}
+
+button {
+    float: right;
+}

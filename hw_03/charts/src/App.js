@@ -1,32 +1,17 @@
 import React, { Component } from 'react';
 import './App.css';
-import TileHolder from './components/TileHolder';
+import TilesHolder from './components/TilesHolder';
 import Details from './components/Details';
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            newStockData: [],
-            oldStockData: [],
-            priceChange: [],
-            tileView: true,
+            stocksData: {},
+            viewport: 'tiles',
             companyId: ''
         }
     }
-
-    // componentWillMount() {
-    //     fetch('http://localhost:3070/prices')
-    //         .then(response => response.json())
-    //         .then(response => {
-    //             this.setState({ newStockData: response });
-    //             this.setState({
-    //                 priceChange: response.map(
-    //                     data => 'equal'
-    //                 )
-    //             })
-    //         })
-    // }
 
     componentDidMount() {
         setInterval(
@@ -34,75 +19,47 @@ class App extends Component {
                 fetch('http://localhost:3070/prices')
                     .then(response => response.json())
                     .then(response => {
-                        this.setState({ oldStockData: this.state.newStockData,
-                            newStockData: response,
-                            priceChange: response.map(
-                                (data, i) => {
-                                    if (!this.state.oldStockData.length) {
-                                        return 'equal';
-                                    }
-                                    if (data.price > this.state.oldStockData[i].price) {
-                                        return 'more';
-                                    } else if (data.price < this.state.oldStockData[i].price) {
-                                        return 'less';
-                                    } else {
-                                        return 'equal';
-                                    }
-                                }
-                            )
-
+                        this.setState({
+                            stocksData: response
                         });
-                        //this.setState({ newStockData: response });
-                        /*   this.setState({
-                            priceChange: response.map(
-                                (data, i) => {
-                                    if (data.price > this.state.oldStockData[i].price) {
-                                        return 'more';
-                                    } else if (data.price < this.state.oldStockData[i].price) {
-                                        return 'less';
-                                    } else {
-                                        return 'equal';
-                                    }
-                                }
-                            )
-                        });*/
                     })
             },
-            500
+            2000
         );
     }
 
-    detailedView(event) {
-        this.setState({ companyId: event.target.id });
-        this.setState({ tileView: false });
+    showDetails(e) {
+        if (e.target.id) {
+            this.setState({
+                viewport: 'details',
+                companyId: e.target.id
+            }, () => {
+                console.log(this.state.viewport, this.state.companyId);
+                console.log(this.state.stocksData[this.state.companyId]);
+            });
+        }
     }
 
-    tileView() {
-        this.setState({ tileView: true });
+    showTiles() {
+        this.setState({ viewport: 'tiles' });
     }
 
     render() {
-        if (this.state.tileView) {
+        if (this.state.viewport === 'tiles'){
             return (
                 <div className="App">
-                    <h2>Stocks datafeed:</h2>
-                    <TileHolder
-                        detailedView={this.detailedView.bind(this)}
-                        stockData={this.state.newStockData}
-                        priceChange={this.state.priceChange}
+                    <TilesHolder
+                        stocksData={this.state.stocksData}
+                        onClick={this.showDetails.bind(this)}
                     />
                 </div>
             );
-        } else {
-            let id = this.state.companyId;
+        } else if (this.state.viewport === 'details') {
             return (
                 <div className="App">
-                    <h2>Detailed view</h2>
-                    <button onClick={this.tileView.bind(this)}>back</button>
                     <Details
-                        name={this.state.newStockData[id].name}
-                        price={this.state.newStockData[id].price}
-                        _id={this.state.newStockData[id].id}
+                        onClick={this.showTiles.bind(this)}
+                        stocksData={this.state.stocksData[this.state.companyId]}
                     />
                 </div>
             );

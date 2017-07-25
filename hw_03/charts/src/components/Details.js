@@ -1,24 +1,18 @@
 import React, { Component } from 'react';
+import Chart from './Chart';
+import List from './List';
 
 class Details extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            price: ''
-        };
-    }
-
-    componentWillReceiveProps() {
-        this.setState({ price: this.props.price });
-        console.log(this.state.price);
-    }
-
     render() {
         return (
             <div className="Details">
-                Company: {this.props.name}<br/>
-                id: {this.props._id}<br/>
-                The price is {this.state.price}.
+                <div>
+                    id: {this.props.stocksData.id}<br />
+                    name: {this.props.stocksData.name}<br />
+                    price: {this.props.stocksData.price}<br />
+                    <button onClick={this.props.onClick}>Push me!</button>
+                </div>
+                <Chart /><List />
             </div>
         );
     }

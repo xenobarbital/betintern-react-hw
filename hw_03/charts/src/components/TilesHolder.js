@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
 import Tile from './Tile';
 
-class TileHolder extends Component {
+class TilesHolder extends Component {
     render() {
-        let tiles = this.props.stockData.map(
-            (data, i) => {
+        let tiles = Array.from(this.props.stocksData).map(
+            data => {
                 return (
                     <Tile
-                        _id={data.id}
+                        key={data.id}
+                        id={data.id}
                         name={data.name}
                         price={data.price}
-                        priceChange={this.props.priceChange[i]}
-                        key={data.id}
                     />
                 );
             }
         );
+
         return (
             <div
-                className="TileHolder"
-                onClick={this.props.detailedView}
+                className="TilesHolder"
+                onClick={this.props.onClick}
             >
                 {tiles}
             </div>
@@ -27,4 +27,4 @@ class TileHolder extends Component {
     }
 }
 
-export default TileHolder;
+export default TilesHolder;
