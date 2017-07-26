@@ -4,13 +4,13 @@ class Tile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            priceLog: []
+            priceLog: [this.props.price]
         };
     }
 
-    componentWillReceiveProps() {
+    componentWillReceiveProps(nextProps) {
         this.setState({
-            priceLog: [...this.state.priceLog, this.props.price]
+            priceLog: [...this.state.priceLog, nextProps.price]
         });
     }
 
@@ -21,7 +21,7 @@ class Tile extends Component {
 
         if (length < 2 || priceLog[length - 1] === priceLog[length - 2]) {
             arrow = 'equal';
-        } else if (priceLog[length - 1] > priceLog[length - 2]) {
+        } else if (+priceLog[length - 1] > +priceLog[length - 2]) {
             arrow = 'more';
         } else {
             arrow = 'less';
@@ -32,7 +32,12 @@ class Tile extends Component {
                 Company: {this.props.name}<br/>
                 Price: {this.props.price}
                 <div className={arrow}></div>
-                <button id={this.props.id}>Details</button>
+                <button
+                    id={this.props.id}
+                    className="rightButton"
+                >
+                    Details
+                </button>
             </div>
         );
     }

@@ -33,10 +33,10 @@ class App extends Component {
             this.setState({
                 viewport: 'details',
                 companyId: e.target.id
-            }, () => {
+            }/*, () => {
                 console.log(this.state.viewport, this.state.companyId);
                 console.log(this.state.stocksData[this.state.companyId]);
-            });
+            }*/);
         }
     }
 
@@ -49,8 +49,8 @@ class App extends Component {
             return (
                 <div className="App">
                     <TilesHolder
-                        stocksData={this.state.stocksData}
                         onClick={this.showDetails.bind(this)}
+                        stocksData={this.state.stocksData}
                     />
                 </div>
             );

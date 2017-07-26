@@ -3,16 +3,28 @@ import Chart from './Chart';
 import List from './List';
 
 class Details extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { data: [this.props.stocksData.price] };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps.stocksData.price);
+        this.setState(
+            { data: [...this.state.data, nextProps.stocksData.price] },
+            () => console.log(this.state.data)
+        );
+    }
+
     render() {
         return (
             <div className="Details">
                 <div>
-                    id: {this.props.stocksData.id}<br />
-                    name: {this.props.stocksData.name}<br />
-                    price: {this.props.stocksData.price}<br />
-                    <button onClick={this.props.onClick}>Push me!</button>
+                    Company: {this.props.stocksData.name}<br />
+                    <button onClick={this.props.onClick}>Back</button>
                 </div>
-                <Chart /><List />
+                <Chart data={this.state.data}/>
+                <List data={this.state.data}/>
             </div>
         );
     }

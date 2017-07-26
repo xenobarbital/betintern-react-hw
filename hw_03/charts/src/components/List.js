@@ -2,9 +2,18 @@ import React, { Component } from 'react';
 
 class List extends Component {
     render() {
+        let list = this.props.data./*reverse().*/map(
+            (elem, i) => {
+                return (
+                    <li key={i}>{elem}</li>
+                );
+            }
+        ).reverse();
         return (
             <div className="List">
-                I'm a list
+                <ul>
+                    {list}
+                </ul>
             </div>
         );
     }

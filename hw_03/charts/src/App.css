@@ -5,7 +5,6 @@ h2, button {
 .Details {
     margin: 5px;
     width: auto;
-    border: 1px solid #999;
 }
 
 .TileHolder {
@@ -44,9 +43,21 @@ h2, button {
 }
 
 .Chart, .List {
-    display: inline-block;
+    border: 1px solid blue;
+    height: 500px;
+    margin: 5px;
 }
 
-button {
+.Chart {
+    width: 700px;
+    float: left;
+}
+
+.List {
+    overflow: scroll;
+    width: 200px;
+}
+
+.rightButton {
     float: right;
 }
