@@ -24,7 +24,7 @@ class App extends Component {
                         });
                     })
             },
-            2000
+            500
         );
     }
 
