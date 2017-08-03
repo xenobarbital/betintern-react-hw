@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Websocket from 'react-websocket';
+import sentiment from 'sentiment';
 import './App.css';
 
 class App extends Component {
@@ -26,13 +27,15 @@ class App extends Component {
     render() {
         let tweets = this.state.feed.map(
             (elem, i) => {
+                let url = 'https://twitter.com/' + elem.screenName;
+                let analysis = sentiment(elem.text);
                 return (
                     <div
                         className="tweet"
                         key={i}
                     >
                         <a
-                            href='https://twitter.com/'
+                            href={url}
                             target='_blank'
                         >
                             <img src={elem.image} alt='userpic'/>
@@ -40,6 +43,13 @@ class App extends Component {
                         <h3>{elem.user}</h3>
                         <p>{elem.text}</p>
                         <footer>{elem.time}</footer>
+                        <ul>
+                            <li>Score: {analysis.score}</li>
+                            <li>Score/wordcount ratio: {analysis.comparative}</li>
+                            <li>AFINN matches: {analysis.words}</li>
+                            <li>Positive: {analysis.positive}</li>
+                            <li>Negative: {analysis.negative}</li>
+                        </ul>
                     </div>
                 );
             }
