@@ -9,10 +9,10 @@ app.use(bodyParser.json());
 
 const Twitter = require('twitter');
 const client = new Twitter({
-  consumer_key: 'BSvYeUXvnvDHtVPrYOc65agGj',
-  consumer_secret: 'WngRCFFYUuVaFyWDe7xfvKdWiUMtPJQePu41iqjAQoiTh8rkgD',
-  access_token_key: '890157332465844224-BEjodQlLUxICjySSEHoZxPibORoMhjt',
-  access_token_secret: 'jo249AD4c0io0n6d45s0AxntAleiHqm75doWfMzj9XTTp'
+    consumer_key: 'BSvYeUXvnvDHtVPrYOc65agGj',
+    consumer_secret: 'WngRCFFYUuVaFyWDe7xfvKdWiUMtPJQePu41iqjAQoiTh8rkgD',
+    access_token_key: '890157332465844224-BEjodQlLUxICjySSEHoZxPibORoMhjt',
+    access_token_secret: 'jo249AD4c0io0n6d45s0AxntAleiHqm75doWfMzj9XTTp'
 });
 
 const Server = require('simple-websocket/server');
@@ -21,33 +21,36 @@ const server = new Server({ port: 3070 }); // see `ws` docs for other options
 let socket;
 
 server.on('connection', s => {
-  socket = s;
+    socket = s;
+    s.on('close', () => socket = null);
 });
 
 let stream;
 
 app.post('/', (req, res) => {
-  try {
-    stream && stream.destroy();
-  } catch (e) {
-    throw e;
-  }
+    try {
+        stream && stream.destroy();
+    } catch (e) {
+        throw e;
+    }
 
-  if (req.body.keyword) {
-    stream = client.stream('statuses/filter', {
-      track: req.body.keyword
-    });
+    if (req.body.keyword) {
+        stream = client.stream('statuses/filter', {
+            track: req.body.keyword
+        });
 
-    stream.on('data', event => {
-      socket.send(JSON.stringify(
-        event
-      ));
-    });
+        stream.on('data', event => {
+            socket && socket.send(JSON.stringify(
+                event
+            ));
+        });
 
-    stream.on('error', error => {
-      console.log(error);
-    })
-  }
+        stream.on('error', error => {
+            console.log(error);
+        })
+    }
+
+    res.send(req.body.keyword);
 });
 
-app.listen(3071, () => console.log('Server started at port 3071.'));
+app.listen(3071, () => console.log('Server at port 3071 :\)'));
