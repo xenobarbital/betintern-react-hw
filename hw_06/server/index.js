@@ -40,9 +40,13 @@ app.post('/', (req, res) => {
         });
 
         stream.on('data', event => {
-            socket && socket.send(JSON.stringify(
-                event
-            ));
+            socket && socket.send(JSON.stringify({
+                user: event.user.name,
+                image: event.user.profile_image_url,
+                time: event.created_at,
+                text: event.text,
+                screenName: event.user.screen_name
+            }));
         });
 
         stream.on('error', error => {

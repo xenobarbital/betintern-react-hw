@@ -1,84 +1,90 @@
 import React, { Component } from 'react';
 import Websocket from 'react-websocket';
 import './App.css';
+import Container from './components/Container';
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: null,
             connected: false,
-            keyword: ''
-        };
+            keyword: '',
+            data: null
+        }
     }
 
-    updKeyword(e) {
-        this.setState({ keyword: e.target.value });
-    }
-
-    handshake() {
+    setConnection() {
         console.log(this.state.keyword);
         const URL = 'http://localhost:3071';
-        const MY_HEADERS = new Headers({
+        const HEADERS = new Headers({
             'Content-Type': 'application/json'
         });
-        const req = {
+        let request = JSON.stringify({
             keyword: this.state.keyword
-        }
+        });
+
         fetch(URL, {
             method: 'post',
-            headers: MY_HEADERS,
-            body: JSON.stringify(req)
-        }).then(response => console.log(response));
+            headers: HEADERS,
+            body: request
+        }).then(response => {
+            console.log(response);
+            this.setState({ connected: true });
+        })
     }
 
-    dataUpdate(data) {
-        let response = JSON.parse(data);
-        let tweet = {
-            user: response.user.name,
-            image: response.user.profile_image_url,
-            time: response.created_at,
-            text: response.text,
-            screenName: response.user.screen_name
-        }
-        this.setState({ data: tweet });
-        console.log('from App component', JSON.stringify(tweet));
+    killConnection() {
+        this.setState({
+            connected: false
+        })
+    }
+
+    dataUpdate(newData) {
+        this.setState({ data: newData });
     }
 
     render() {
-        const myForm = (
-            <div>
-                <input
-                    type='text'
-                    onChange={this.updKeyword.bind(this)}
-                />
-                <button
-                    onClick={this.handshake.bind(this)}
-                >
-                    Submit
-                </button>
-            </div>
-        );
-
+        let connection;
         if (!this.state.connected) {
-            return (
-                <div className='App'>
-                    <p>No connection</p>
-                    {myForm}
-                </div>
-            );
+            connection = <div><h1>No connection</h1></div>;
         } else {
-            return (
-                <div className='App'>
-                    <p>Connected. Tracking {this.state.keyword}</p>
-                    {myForm}
+            connection = (
+                <div>
+                    <h1>Connected</h1>
                     <Websocket
                         url='ws://localhost:3070'
                         onMessage={this.dataUpdate.bind(this)}
                     />
                 </div>
-            );
+            )
         }
+
+        return (
+            <div className='App'>
+                {connection}
+                <input
+                    type='text'
+                    placeholder='input keyword'
+                    onChange={(e) => this.setState({
+                        keyword: e.target.value
+                    })}
+                />
+                <button
+                    onClick={this.setConnection.bind(this)}
+                >
+                    Submit
+                </button>
+                <button
+                    onClick={this.killConnection.bind(this)}
+                >
+                    Stop
+                </button>
+                <Container
+                    keyword={this.state.keyword}
+                    data={this.state.data}
+                />
+            </div>
+        );
     }
 }
 
