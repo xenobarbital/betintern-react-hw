@@ -28,7 +28,7 @@ class App extends Component {
             headers: HEADERS,
             body: request
         }).then(response => {
-            console.log(response);
+            //console.log(response);
             this.setState({ connected: true });
         })
     }
@@ -40,7 +40,8 @@ class App extends Component {
     }
 
     dataUpdate(newData) {
-        this.setState({ data: newData });
+        this.setState({ data: JSON.parse(newData) });
+        console.log(typeof this.state.data);
     }
 
     render() {
@@ -72,7 +73,7 @@ class App extends Component {
                 <button
                     onClick={this.setConnection.bind(this)}
                 >
-                    Submit
+                    Start
                 </button>
                 <button
                     onClick={this.killConnection.bind(this)}

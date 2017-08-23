@@ -1,0 +1,29 @@
+h1 {
+    font-size: 130%;
+}
+
+h2 {
+    font-size: 120%;
+}
+
+h3 {
+    font-size: 110%;
+}
+
+.App {
+    margin: 3px;
+    padding: 3px;
+}
+
+.tweets {
+    overflow: scroll;
+    border: 1px solid #999;
+    width: 600px;
+    height: 400px;
+}
+
+.Tweet {
+    border: 1px solid blue;
+    margin: 2px;
+    padding: 2px;
+}
