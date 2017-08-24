@@ -14,7 +14,7 @@ class App extends Component {
     }
 
     setConnection() {
-        console.log(this.state.keyword);
+        //console.log(this.state.keyword);
         const URL = 'http://localhost:3071';
         const HEADERS = new Headers({
             'Content-Type': 'application/json'
@@ -41,7 +41,7 @@ class App extends Component {
 
     dataUpdate(newData) {
         this.setState({ data: JSON.parse(newData) });
-        console.log(typeof this.state.data);
+        //console.log(typeof this.state.data);
     }
 
     render() {

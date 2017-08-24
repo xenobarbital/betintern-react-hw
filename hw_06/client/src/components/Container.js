@@ -6,7 +6,8 @@ class Container extends Component {
         super(props);
         this.state = {
             display: 'feed',
-            feed: []
+            feed: [],
+            scores: []
         };
     }
 
@@ -14,6 +15,14 @@ class Container extends Component {
         if (newProps.data) {
             this.setState({ feed: [...this.state.feed, newProps.data] });
         }
+    }
+
+    componentDidUpdate() {
+        console.log(this.state.scores);
+    }
+
+    addScore(score) {
+        this.setState({ scores: [...this.state.scores, score] });
     }
 
     render() {
@@ -29,6 +38,7 @@ class Container extends Component {
                             time={elem.time}
                             text={elem.text}
                             screenName={elem.screenName}
+                            addScore={this.addScore.bind(this)}
                         />
                     );
                 }

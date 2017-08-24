@@ -29,8 +29,10 @@ class Tweet extends Component {
             body: JSON.stringify(text)
         }).then(response => response.json())
             .then(response => {
-                console.log(response.documents[0].score);
-                this.setState({ textScore: response.documents[0].score.toFixed(6) });
+                //console.log(response.documents[0].score);
+                this.setState({ textScore: response.documents[0].score.toFixed(6) }, () => {
+                    this.props.addScore(this.state.textScore);
+                });
             });
     }
 
