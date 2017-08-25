@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Tweet from './Tweet';
+import Charts from './Charts';
 
 class Container extends Component {
     constructor(props) {
@@ -17,8 +18,9 @@ class Container extends Component {
         }
     }
 
+    //diagnostic hook
     componentDidUpdate() {
-        console.log(this.state.scores);
+        console.log('scores: ', this.state.scores);
     }
 
     addScore(score) {
@@ -49,8 +51,22 @@ class Container extends Component {
             return (
                 <div className='Container'>
                     <h2>Tracking: {this.props.keyword}</h2>
-                    <div className='tweets'>
-                        {tweets}
+                    <button>Save</button>
+                    <button
+                        onClick={() => {
+                            this.setState({
+                                feed: [],
+                                scores: []
+                            });
+                        }}
+                    >
+                        Clear
+                    </button>
+                    <div>
+                        <div className='tweets'>
+                            {tweets}
+                        </div>
+                        <Charts data={this.state.scores}/>
                     </div>
                 </div>
             );

@@ -7,7 +7,8 @@ class Tweet extends Component {
     }
 
     msApi(input) {
-        const URL = 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment';
+        const URL =
+            'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment';
         const MY_HEADERS = new Headers({
             'Ocp-Apim-Subscription-Key': 'c3b590da9f49456883cf4d0c46c1c619',
             'Content-Type': 'application/json',
@@ -30,9 +31,12 @@ class Tweet extends Component {
         }).then(response => response.json())
             .then(response => {
                 //console.log(response.documents[0].score);
-                this.setState({ textScore: response.documents[0].score.toFixed(6) }, () => {
-                    this.props.addScore(this.state.textScore);
-                });
+                this.setState(
+                    { textScore: response.documents[0].score.toFixed(6) },
+                    () => {
+                        this.props.addScore(this.state.textScore);
+                    }
+                );
             });
     }
 
