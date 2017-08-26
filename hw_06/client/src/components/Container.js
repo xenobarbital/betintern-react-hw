@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Tweet from './Tweet';
 import Charts from './Charts';
+import Storage from './Storage';
 
 class Container extends Component {
     constructor(props) {
@@ -14,13 +15,15 @@ class Container extends Component {
 
     componentWillReceiveProps(newProps) {
         if (newProps.data) {
+            // console.log('props', this.props.data);
             this.setState({ feed: [...this.state.feed, newProps.data] });
+            console.log('length', this.state.feed.length);
         }
     }
 
     //diagnostic hook
     componentDidUpdate() {
-        console.log('scores: ', this.state.scores);
+        // console.log('scores: ', this.state.scores);
     }
 
     addScore(score) {
@@ -51,7 +54,16 @@ class Container extends Component {
             return (
                 <div className='Container'>
                     <h2>Tracking: {this.props.keyword}</h2>
-                    <button>Save</button>
+                    <button
+                        onClick={() => {
+                            localStorage.setItem(
+                                this.props.keyword,
+                                JSON.stringify(this.state.feed)
+                            );
+                        }}
+                    >
+                        Save
+                    </button>
                     <button
                         onClick={() => {
                             this.setState({
@@ -62,12 +74,33 @@ class Container extends Component {
                     >
                         Clear
                     </button>
+                    <button
+                        onClick={() => {
+                            this.setState({ display: 'storage' })
+                        }}
+                    >
+                        Storage
+                    </button>
                     <div>
                         <div className='tweets'>
                             {tweets}
                         </div>
                         <Charts data={this.state.scores}/>
                     </div>
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    <h2>Stored feeds</h2>
+                    <button
+                        onClick={() => {
+                            this.setState({ display: 'feed' });
+                        }}
+                    >
+                        Feed
+                    </button>
+                    <Storage />
                 </div>
             );
         }

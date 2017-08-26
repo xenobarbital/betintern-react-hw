@@ -40,8 +40,8 @@ class App extends Component {
     }
 
     dataUpdate(newData) {
+        // console.log('data', this.state.data);
         this.setState({ data: JSON.parse(newData) });
-        //console.log(typeof this.state.data);
     }
 
     render() {

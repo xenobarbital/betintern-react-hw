@@ -18,7 +18,7 @@ h3 {
 .tweets {
     overflow: scroll;
     border: 1px solid #999;
-    width: 600px;
+    width: 500px;
     height: 400px;
     display: inline-block;
     margin-top: 5px;
@@ -27,7 +27,7 @@ h3 {
 
 .Charts {
     border: 1px solid #999;
-    width: 700px;
+    width: 600px;
     height: 400px;
     display: inline-block;
     margin-top: 5px;
@@ -37,4 +37,28 @@ h3 {
     border: 1px solid blue;
     margin: 2px;
     padding: 2px;
+}
+
+.displayedFeed, .feeds {
+    display: inline-block;
+    border: 1px solid #999;
+    height: 400px;
+    margin-top: 5px;
+    overflow: scroll;
+}
+
+.displayedFeed {
+    width: 600px;
+    margin-right: 5px;
+}
+
+.feeds {
+    width: 200px;
+}
+
+.storedFeed {
+    border: 1px solid blue;
+    width: auto;
+    padding: 5px;
+    margin: 5px;
 }

@@ -9,10 +9,10 @@ app.use(bodyParser.json());
 
 const Twitter = require('twitter');
 const client = new Twitter({
-    consumer_key: 'BSvYeUXvnvDHtVPrYOc65agGj',
-    consumer_secret: 'WngRCFFYUuVaFyWDe7xfvKdWiUMtPJQePu41iqjAQoiTh8rkgD',
-    access_token_key: '890157332465844224-BEjodQlLUxICjySSEHoZxPibORoMhjt',
-    access_token_secret: 'jo249AD4c0io0n6d45s0AxntAleiHqm75doWfMzj9XTTp'
+    consumer_key: 'aZxtaIRGKz5J9UQOc1S8cyryu',
+    consumer_secret: 'USmIMM0Jl21HaYYp5uU20lSwARykObFw7kXG0ja2k9ckOWbVPx',
+    access_token_key: '88262279-1dUFhEiahIOoWKooKwEC9hHIqvITvKbvCl7AgaXff',
+    access_token_secret: 'r2jHubSOgDlsIR3CHPBLeiXzBpvSzgZsCWnsQeCX6XmZd'
 });
 
 const Server = require('simple-websocket/server');
